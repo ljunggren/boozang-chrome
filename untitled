@@ -1,0 +1,10 @@
+			// get some kind of XMLHttpRequest
+			var xhrObj = createXMLHTTPObject();
+			// open and send a synchronous request
+			xhrObj.open('GET', "//api.boozang.com/ide?id=5805259759a13a375ba5ef33", false);
+			xhrObj.send('');
+			// add the returned content to a newly created script tag
+			var se = document.createElement('script');
+			se.type = "text/javascript";
+			se.text = xhrObj.responseText;
+			
