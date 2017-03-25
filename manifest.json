@@ -1,6 +1,5 @@
 {
   "manifest_version": 2,
-
   "name": "Boozang",
   "description": "This extension launches the Boozang tool.",
   "version": "1.0",
@@ -11,12 +10,16 @@
   },
 
   "browser_action": {
-    "default_icon": "boozang.png"
+    "default_icon": "boozang.png",
+    "defualt_title": "Launch Boozang",
+    "default_popup": "popup.html"
   },
   "permissions": [
     "activeTab",
-    "cookies"
+    "cookies",
+    "storage"
   ],
+  "options_page": "options.html",
   "content_scripts": [
     {
       "matches": [

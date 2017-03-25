@@ -1,13 +1,28 @@
 <html>
 <head>
-	<title>Options for Project Key Input</title>
+	<title>Settings for Boozang Chrome plugin</title>
 	<script type="text/javascript" src="options.js"></script>
 </head>
-<body onload="loadOptions()">
-	<h1>Favorite Color</h1>
-	<input id="projectKey">
-	</input>
-	<br />
-	<button onclick="saveOptions()">Save</button>
+<body>
+	<h1 id="heading">Settings</h1>
+	<p>
+		<span id="projectKeyLabel">
+			Project Key
+		</span>
+		<input id="projectKey">
+		</input>
+    </p>
+    <p>
+    	<span id="serverInpulLabel">
+    		Server URL
+    	</span>
+		<input id="serverInput">
+		</input>
+	</p>
+
+	<div id="message"></div>
+	<div id="message2"></div>
+	
+	<button id="saveButton">Save</button>
 </body>
 </html>

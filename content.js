@@ -5,35 +5,42 @@ var some = function(list, callback){
 	return false;
 };
 
-
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
-    if( request.message === "clicked_browser_action" ) {
+  	console.log("Content.js: Listener active");
+  	console.log(sender.tab ?
+                "Content.js: Calling from a content script:" + sender.tab.url :
+                "Content.js: Calling from the extension");
+    if( request.message === "launch_tool" ) {
+        console.log("Content.js: Launching Boozang tool");
 
-    		// get some kind of XMLHttpRequest
-    		var xhrObj = new XMLHttpRequest;
-			//var xhrObj = createXMLHTTPObject();
-			// open and send a synchronous request
-			xhrObj.open('GET', "//va.boozang.com/ide?id=58c3158bcff3277db8d3f2e1", false);
-			xhrObj.send('');
-			// add the returned content to a newly created script tag
-			var se = document.createElement('script');
-			se.type = "text/javascript";
-			se.text = xhrObj.responseText;
+        chrome.runtime.sendMessage({get_settings: "settings"}, function(response) {
+   	        var settings = response.msg;
+            if (settings) {
+    	       console.log("Settings exists. ProjectKey is " + settings.projectKey + " and server is " + settings.server);
+            } else {
+            	console.log("Settings empty. Popup window should have taken care of this.");
+                //chrome.windows.create({'url': 'popup.html', 'type': 'popup'}, function(window) { });            
+            }   
 
-			//var content = "<script type='text/javascript' src='//api.boozang.com/ide?id=5805259759a13a375ba5ef33'></script>";		
-			
-			var doc = document.implementation.createHTMLDocument(""+(document.title || ""));
-			doc.open();
-			//var head = doc.createElement("head");
-			doc.write('<html><head></head></html>');
-			doc.getElementsByTagName('head')[0].appendChild(se);
+             var xhrObj = new XMLHttpRequest;
 
-			//doc.write(content);
-			doc.close();
+             var projecturl = "//"+ settings.server + "/ide?id=" + settings.projectKey + "&type=plugin";
+             
+             console.log("Project URL" + projecturl);
+             
+             xhrObj.open('GET', projecturl, false);
+			 xhrObj.send('');
 
-			//Doing this will activate all the modified scripts and the "old page" will be gone as the document is replaced
-			document.replaceChild( document.importNode(doc.documentElement, true), document.documentElement);
+			 var se = document.createElement('script');
+			 se.type = "text/javascript";
+			 se.text = xhrObj.responseText;
+             
+             var doc = document;
+			 doc.write('<html><head></head></html>');
+			 doc.getElementsByTagName('head')[0].appendChild(se);
+        }); 
     }
   }
 );
+

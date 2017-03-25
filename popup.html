@@ -1,11 +1,26 @@
 <!doctype html>
 <html>
   <head>
-    <title>Boozang Robot</title>
+    <title>Boozang Plugin</title>
     <script src="popup.js"></script>
   </head>
   <body>
-    <h1>Boozang Robot</h1>
-    <button id="checkPage">Launchs Tool Now!</button>
+   	<p>
+		<span id="projectKeyLabel">
+			Project Key
+		</span>
+		<input id="projectKey">
+		</input>
+    </p>
+    <p style='display="none"'>
+    	<span id="serverInpulLabel">
+    		Server URL
+    	</span>
+		<input id="serverInput">
+		</input>
+	</p>
+    <div id="message"></div>
+    <button id="saveButton">Save</button>
+    <!--<button id="checkPage">Launchs Tool Now!</button> -->
   </body>
 </html>
