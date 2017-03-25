@@ -1,15 +1,10 @@
-# Adblocker blocker blocker
+# Boozang Chrome Extension
 
-![Logo](https://github.com/dkleiman/adblockerblockerblocker/raw/master/icon128.png)
+![Logo](https://github.com/ljunggren/boozang-chrome/raw/master/boozang128.png)
 
-Small browser extension to block simple sites that block adblocker based on the stackoverflow answer [here](http://stackoverflow.com/questions/10412651/how-can-i-remove-script-elements-before-they-are-being-executed).
+Browser extension to launch the Boozang test tool
 
-Just click on the icon to run a script that reloads the page with none of their javascript.
+Just click on the Boozang icon to to run the tool. It's required that you sign-up for free at 
+<a href="https://boozang.com">https://boozang.com</a> and retrieve your project key. 
 
-So far it works on:
-
-* <http://wwww.wired.com>
-
-Sites that are too complicated for it (it just kills the page):
-
-* <http://forbes.com>
+For more information check out the main site <a href="https://boozang.com">https://boozang.com</a>
