@@ -7,26 +7,58 @@ chrome.runtime.sendMessage({get_settings: "settings"}, function(response) {
   if (response) {
     console.log("Popup: Response is not null")
     var settings = response.msg;
-    if (settings) {
-      console.log("Settings exists so show launch tool button");
-        chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-           chrome.tabs.sendMessage(tabs[0].id, {message: "launch_tool"}, function(response) {
-             console.log('Start action sent. Response ' + response);
-           });  
-        });
-        window.document.getElementById("projectKey").value = settings.projectKey;
-        window.document.getElementById("serverInput").value = settings.server;
+    if (initSettings(settings)) {
+      console.log("Launching tool");
+      launchTool();
     } else {
         console.log("Settings empty");
-        window.document.getElementById("projectKey").value = "";
-        window.document.getElementById("serverInput").value = "va.boozang.com";
     }  
   } else {
     console.log("Popup: Response is null. Bad code");
   }
-  window.document.getElementById("saveButton").onclick = saveSettings;
 });
 
+function launchTool(){
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+    chrome.tabs.sendMessage(tabs[0].id, {message: "launch_tool"}, function(response) {
+      console.log('Start action sent. Response ' + response);
+    });  
+  });
+}
+
+  function initSettings(settings) {
+    window.document.getElementById("editLink").onclick = setEditMode;
+    window.document.getElementById("saveButton").onclick = saveSettings;
+
+    if (settings && settings.projectKey&& settings.server) {
+      console.log("Settings exists so show launch tool button");
+      window.document.getElementById("projectKey").value = settings.projectKey;
+      window.document.getElementById("serverInput").value = settings.server;
+      window.document.getElementById("projectKeyText").innerHTML = settings.projectKey;
+      
+      setLaunchMode();
+      return true;
+    }
+    else {
+      window.document.getElementById("projectKey").value = "";
+      window.document.getElementById("serverInput").value = "va.boozang.com";
+      window.document.getElementById("projectKeyText").innerHTML = "";
+      setEditMode();
+      return false;
+    }
+  }
+
+ function setEditMode () {
+    window.document.getElementById("launchBlock").style = "display: none";
+    window.document.getElementById("editBlock").style = "display: block";
+  }
+
+
+ function setLaunchMode () {
+    window.document.getElementById("launchBlock").style = "display: block";
+    window.document.getElementById("editBlock").style = "display: none";
+  }
+ 
  function saveSettings() {
         // Get a value saved in a form.
         var projectKey = window.document.getElementById("projectKey").value;
@@ -46,7 +78,6 @@ chrome.runtime.sendMessage({get_settings: "settings"}, function(response) {
           error('Error: Project Key needs to be a hexadecimal value');
            return;
         }
-        
        
 
         if (!server || server.length === 0) {
@@ -63,6 +94,9 @@ chrome.runtime.sendMessage({get_settings: "settings"}, function(response) {
              console.log("Options settings. " + response.msg);
              message(response.msg);
         });
+
+        setLaunchMode();
+        launchTool();
 }
 
 

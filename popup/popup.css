@@ -3,7 +3,7 @@ body {
     font-family: "Roboto", "Helvetica Neue", Arial, sans-serif;
     font-weight: 400;
     color: #5c6470;
-    font-size: 100%;
+    font-size: 80%;
     display: block;
     margin: 0px;
 }
@@ -16,6 +16,7 @@ body {
     width: 280px;
     height: 25px;
     margin: 3px 0px 12px 0px;
+    font-size:20px;
 }
 
 .style-5 input[type="text"] {
@@ -58,12 +59,13 @@ body {
 }
 
 .btn {
+	width: 285px;
 	color: #fff;
     display: inline-block;
     padding: 6px 12px;
     margin-bottom: 0;
     font-size: 14px;
-    font-weight: 400;
+    font-weight: 600;
     line-height: 1.42857143;
     text-align: center;
     white-space: nowrap;
