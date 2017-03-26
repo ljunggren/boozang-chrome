@@ -1,6 +1,6 @@
 # Boozang Chrome Extension
 
-![Logo](https://github.com/ljunggren/boozang-chrome/raw/master/boozang.png)
+![Logo](https://github.com/ljunggren/boozang-chrome/raw/master/images/boozang-large.png)
 
 Browser extension to launch the Boozang test tool
 

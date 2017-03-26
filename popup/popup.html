@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Boozang Plugin</title>
+    <link rel="stylesheet" href="popup.css" type="text/css" media="screen">
+    <script src="popup.js"></script>
+  </head>
+  <body>
+
+  <div class="header-section">
+    <img class="logo-large" src="../images/boozang-large-rev.png"/>
+  </div>
+  <div class="container">
+  <div id="welcome-text" class="plaintext">Enter your project key to get started. You only have to do this once. </div>
+  <div id="editBlock">
+    <div id="project-controls">
+ 		<div id="projectKeyLabel" class="labels">
+			Project Key
+		</div>
+		<input class="style-5 fullwidth" id="projectKey">
+		</input>
+  </div>
+    <div id="server-controls" class="hide">
+    	<div id="serverInputLabel" class="labels">
+    		Server URL
+    	</div>
+		  <input style="style-5" id="serverInput">
+    </div>
+		</input>
+   <div id="message"></div>
+    <button id="saveButton" class="btn btn-success">Launch tool</button>
+  </div>
+  <div id="launchBlock">
+    <span id="launchtext">Launching Boozang tool with project id </span>
+    <span id="projectKeyText"></span><br/>
+    <a id="editLink" href="">Edit</a>
+  </div>
+  <div id="signup-text" class="plaintext">
+    Sign-up and get your project key <a target="_blank" href="https://va.boozang.com">here</a>
+  </div>
+</div>
+  </body>
+</html>
