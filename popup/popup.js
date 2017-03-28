@@ -68,6 +68,7 @@ window._bzPop={
     this._findById("_settingLink2")._show();
     localStorage.setItem("_bzSetting",JSON.stringify(this._setting));
     this._sendMsg({_fun:"_launch",_setting:this._setting}, function(_response) {
+      _bzPop._showMessage(_response);
     });
   },
   _setServer:function(){
