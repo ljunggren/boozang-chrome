@@ -5,6 +5,30 @@ document.addEventListener('DOMContentLoaded', function() {
 window._bzPop={
   _setting:null,
   _init:function(){
+    //Setting links
+    this._findById("_settingLink1")._click(function(){
+      _bzPop._showServer();
+    });
+    this._findById("_settingLink2")._click(function(){
+      _bzPop._showServer();
+    });
+    //Lanuch button
+    this._findById("_btnLanuch")._click(function(){
+      var _project=_bzPop._findById("_project");
+      if(_project){
+        _bzPop._setting._project=_project._val();
+        _bzPop._launch();
+      }
+    });
+    //set server button
+    this._findById("_btnSetServer")._click(function(){
+      _bzPop._setServer();
+    });
+    //login button
+    this._findById("_btnLogin")._click(function(){
+      _bzPop._login();
+    });
+
     this._setting=localStorage.getItem("_bzSetting");
     
     if(!this._setting){
@@ -19,34 +43,29 @@ window._bzPop={
     this._findById("_loginPage")._hide();
     this._findById("_projectPage")._hide();
     this._findById("_message")._hide();
+    this._findById("_settingLink2")._hide();
   },
   _showServer:function(){
     this._hideAllPages();
     this._findById("_serverPage")._show();
-    this._findById("_btnSetServer")._click(function(){
-      _bzPop._setServer();
-    });
   },
   _showLogin:function(){
     this._hideAllPages();
     this._findById("_loginPage")._show();
-    this._findById("_btnLogin")._click(function(){
-      _bzPop._login();
-    });
     this._findById("_signUpLink")._attr({href:"http://"+this._setting._server+"/"});
   },
   _showProject:function(){
     this._hideAllPages();
     this._findById("_projectPage")._show();
-    this._findById("_btnLanuch")._click(function(){
-      var _project=_bzPop._findById("_project");
-      if(_project){
-        _bzPop._setting._project=_project._val();
-        _bzPop._launch();
-      }
-    });
+    this._findById("_settingLink2")._show();
+  },
+  _showMessage:function(msg){
+    _bzPop._findById("_message")._html(msg)._show();
   },
   _launch:function(){
+    this._hideAllPages();
+    this._showMessage("Launch ...");
+    this._findById("_settingLink2")._show();
     localStorage.setItem("_bzSetting",JSON.stringify(this._setting));
     this._sendMsg({_fun:"_launch",_setting:this._setting}, function(_response) {
     });
@@ -64,11 +83,11 @@ window._bzPop={
     this._sendMsg({_fun:"_login",_setting:_this._setting,_data:_data}, function(_response) {
       if(!_response){
         _this._showServer();
-        _bzPop._findById("_message")._html("There is no response from the server. Please check the server address.")._show();
+        _bzPop._showMessage("There is no response from the server. Please check the server address.");
       }else{
         _response=JSON.parse(_response);
         if(_response.message){
-          _bzPop._findById("_message")._html("Login failed! Please try again")._show();
+          _bzPop._showMessage("Login failed! Please try again");
         }else{
           _bzPop._retrieveProjectList();
         }
@@ -80,7 +99,7 @@ window._bzPop={
     this._sendMsg({_fun:"_retrieveProjectList",_setting:_this._setting},function(_response) {
       if(!_response){
         _this._showServer();
-        _bzPop._findById("_message")._html("There is no response from the server. Please check the server address.")._show();
+        _bzPop._showMessage("There is no response from the server. Please check the server address.");
       }else{
         try{
           _response=JSON.parse(_response);

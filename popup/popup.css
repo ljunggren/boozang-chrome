@@ -16,13 +16,14 @@ body {
   width:100%;
 }
 
-.bz-pop-table tr>td:first{
+.bz-pop-table tr td:first-child{
+  width:0;
+  white-space: nowrap;
+}
+.bz-pop-table tr>td:last-child{
   width:0;
 }
-.bz-pop-table tr>td:last{
-  width:0;
-}
-.bz-pop-table tr>td:second{
+.bz-pop-table tr>td:nth-child(2){
   width:100% !important;
 }
 .bz-pop-table tr>td>*{
