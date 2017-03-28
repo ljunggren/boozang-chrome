@@ -6,38 +6,41 @@
   <script src="popup.js"></script>
 </head>
 <body>
-
   <div class="header-section">
     <img class="logo-large" src="../images/boozang-large-rev.png"/>
   </div>
   <div class="container">
-   <div id="editBlock">
-    <div id="welcome-text" class="plaintext">Enter your project key to get started. You only have to do this once. </div>
-    <div id="project-controls">
-     <div id="projectKeyLabel" class="labels">
-       Project Key
-     </div>
-     <input class="style-5 fullwidth" id="projectKey">
-   </input>
- </div>
- <div id="server-controls" class="hide">
-   <div id="serverInputLabel" class="labels">
-    Server URL
+    <div id="_serverPage" style="display:none">
+      <table class="bz-pop-table">
+        <tr>
+          <td>Server:</td>
+          <td><input id="_serverName"/></td>
+          <td><button id="_btnSetServer">Next</button></td>
+        </tr>
+      </table>
+    </div>
+    <div id="_loginPage" style="display:none">
+      <table class="bz-pop-table">
+        <tr><td>User Name (email):</td><td><input id="_username"/></td></tr>
+        <tr><td>Password:</td><td><input type="password" id="_password"/></td></tr>
+        <tr>
+          <td colspan="2">
+            <button id="_btnLogin" style="float:right;margin-right:10">Login</button>
+            <a id="_signUpLink" target="_blank" style="text-align:right;float:right;margin-right:10">Sign up</a>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div id="_projectPage" style="display:none">
+      <table class="bz-pop-table">
+        <tr>
+          <td>Project:</td>
+          <td><select id="_project"/></td>
+          <td colspan="2"><button id="_btnLanuch" onclick="_bzPop._launch()">Go</button></td>
+        </tr>
+      </table>
+    </div>
+    <div id="_message"></div>
   </div>
-  <input style="style-5" id="serverInput">
-</div>
-</input>
-<div id="message"></div>
-<button id="saveButton" class="btn btn-success">Launch tool</button>
-<div id="signup-text" class="plaintext">
-  Sign-up and get your project key <a target="_blank" href="https://va.boozang.com">here</a>
-</div>
-</div>
-<div id="launchBlock">
-  <div id="launchtext">Project Key</div>
-  <div id="projectKeyText"> </div> <a id="editLink" href="">Edit</a>
-</div>
-
-</div>
 </body>
 </html>

@@ -1,22 +1,50 @@
 body {
-    min-width:300px;
-    font-family: "Roboto", "Helvetica Neue", Arial, sans-serif;
-    font-weight: 400;
-    color: #5c6470;
-    font-size: 80%;
-    display: block;
-    margin: 0px;
+  min-width:300px;
+  font-family: "Roboto", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 400;
+  color: #5c6470;
+  font-size: 80%;
+  display: block;
+  margin: 0px;
 }
 
 .container {
-   margin: 5px;
+ margin: 5px;
 }
 
+.bz-pop-table{
+  width:100%;
+}
+
+.bz-pop-table tr>td:first{
+  width:0;
+}
+.bz-pop-table tr>td:last{
+  width:0;
+}
+.bz-pop-table tr>td:second{
+  width:100% !important;
+}
+.bz-pop-table tr>td>*{
+  width:100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 .fullwidth {
-    width: 280px;
-    height: 25px;
-    margin: 3px 0px 12px 0px;
-    font-size:20px;
+  width: 280px;
+  height: 25px;
+  margin: 3px 0px 12px 0px;
+  font-size:20px;
 }
 
 .style-5 input[type="text"] {
@@ -50,36 +78,36 @@ body {
 }
 
 .btn.btn-success:hover {
-    background-color: #325EEA;
+  background-color: #325EEA;
 }
 
 .btn.btn-success {
-    background-color: #3E65FF;
-    border-color: #325EEA;
+  background-color: #3E65FF;
+  border-color: #325EEA;
 }
 
 .btn {
 	width: 285px;
 	color: #fff;
-    display: inline-block;
-    padding: 6px 12px;
-    margin-bottom: 0;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 1.42857143;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-image: none;
-    border: 1px solid transparent;
-    /* border-radius: 4px; */
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  /* border-radius: 4px; */
 }
 
 

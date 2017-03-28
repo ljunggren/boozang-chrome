@@ -2,119 +2,147 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
-chrome.runtime.sendMessage({get_settings: "settings"}, function(response) {
-  console.log("Popup: Message reply.")
-  if (response) {
-    console.log("Popup: Response is not null")
-    var settings = response.msg;
-    if (initSettings(settings)) {
-      console.log("Launching tool");
-      launchTool();
-    } else {
-        console.log("Settings empty");
-    }  
-  } else {
-    console.log("Popup: Response is null. Bad code");
-  }
-});
-
-function launchTool(){
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-    chrome.tabs.sendMessage(tabs[0].id, {message: "launch_tool"}, function(response) {
-      console.log('Start action sent. Response ' + response);
-    });  
-  });
-}
-
-  function initSettings(settings) {
-    window.document.getElementById("editLink").onclick = setEditMode;
-    window.document.getElementById("saveButton").onclick = saveSettings;
-
-    if (settings && settings.projectKey&& settings.server) {
-      console.log("Settings exists so show launch tool button");
-      window.document.getElementById("projectKey").value = settings.projectKey;
-      window.document.getElementById("projectKeyText").value = settings.projectKey;
-      window.document.getElementById("serverInput").value = settings.server;
-      setLaunchMode();
-      return true;
+window._bzPop={
+  _setting:null,
+  _init:function(){
+    this._setting=localStorage.getItem("_bzSetting");
+    
+    if(!this._setting){
+      this._showServer();
+    }else{
+      this._setting=JSON.parse(this._setting);
+      this._retrieveProjectList();
     }
-    else {
-      window.document.getElementById("projectKey").value = "";
-      window.document.getElementById("serverInput").value = "va.boozang.com";
-      window.document.getElementById("projectKeyText").value = "";
-      setEditMode();
-      return false;
-    }
-  }
-
- function setEditMode () {
-    window.document.getElementById("launchBlock").style = "display: none";
-    window.document.getElementById("editBlock").style = "display: block";
-  }
-
-
- function setLaunchMode () {
-    window.document.getElementById("launchBlock").style = "display: block";
-    window.document.getElementById("editBlock").style = "display: none";
-  }
- 
- function saveSettings() {
-        // Get a value saved in a form.
-        var projectKey = window.document.getElementById("projectKey").value;
-        var server = window.document.getElementById("serverInput").value;
-
-        console.log("Project Key = " + projectKey);
-        console.log("Server Input = " + server);
-        
-        // Check that there's some code there.
-        if (!projectKey) {
-          error('Error: Project Key needs to be specified');
-          return;
-        } 
-
-        var re = /[0-9A-Fa-f]{6}/g;
-        if(!re.test(projectKey)) {
-          error('Error: Project Key needs to be a hexadecimal value');
-           return;
+  },
+  _hideAllPages:function(){
+    this._findById("_serverPage")._hide();
+    this._findById("_loginPage")._hide();
+    this._findById("_projectPage")._hide();
+    this._findById("_message")._hide();
+  },
+  _showServer:function(){
+    this._hideAllPages();
+    this._findById("_serverPage")._show();
+    this._findById("_btnSetServer")._click(function(){
+      _bzPop._setServer();
+    });
+  },
+  _showLogin:function(){
+    this._hideAllPages();
+    this._findById("_loginPage")._show();
+    this._findById("_btnLogin")._click(function(){
+      _bzPop._login();
+    });
+    this._findById("_signUpLink")._attr({href:"http://"+this._setting._server+"/"});
+  },
+  _showProject:function(){
+    this._hideAllPages();
+    this._findById("_projectPage")._show();
+    this._findById("_btnLanuch")._click(function(){
+      var _project=_bzPop._findById("_project");
+      if(_project){
+        _bzPop._setting._project=_project._val();
+        _bzPop._launch();
+      }
+    });
+  },
+  _launch:function(){
+    localStorage.setItem("_bzSetting",JSON.stringify(this._setting));
+    this._sendMsg({_fun:"_launch",_setting:this._setting}, function(_response) {
+    });
+  },
+  _setServer:function(){
+    this._setting={_server:this._findById("_serverName")._val()};
+    this._retrieveProjectList();
+  },
+  _login:function(){
+    var _data={
+      username:this._findById("_username")._val(),
+      password:this._findById("_password")._val()
+    };
+    var _this=this;
+    this._sendMsg({_fun:"_login",_setting:_this._setting,_data:_data}, function(_response) {
+      if(!_response){
+        _this._showServer();
+        _bzPop._findById("_message")._html("There is no response from the server. Please check the server address.")._show();
+      }else{
+        _response=JSON.parse(_response);
+        if(_response.message){
+          _bzPop._findById("_message")._html("Login failed! Please try again")._show();
+        }else{
+          _bzPop._retrieveProjectList();
         }
-       
-
-        if (!server || server.length === 0) {
-           server =  "va.boozang.com";
+      }
+    });
+  },
+  _retrieveProjectList:function(){
+    var _this=this;
+    this._sendMsg({_fun:"_retrieveProjectList",_setting:_this._setting},function(_response) {
+      if(!_response){
+        _this._showServer();
+        _bzPop._findById("_message")._html("There is no response from the server. Please check the server address.")._show();
+      }else{
+        try{
+          _response=JSON.parse(_response);
+          if(_response.constructor==Array){
+            var _select=_this._findById("_project");
+            for(var i=0;i<_response.length;i++){
+              var r=_response[i];
+              if(r.code==_this._setting._project){
+                return _this._launch();
+              }
+              _select._append("<option value='"+r.code+"'>"+r.name+"</option>");
+            }
+            _bzPop._showProject();
+          }else{
+            _bzPop._showLogin();
+          }
+        }catch(e){
+          _bzPop._showLogin();
         }
-
-        if ( !isURL(server) ){
-          error2('Error: Server needs to be in format va.boozang.com'); 
-          return;
+      }
+    });
+  },
+  _sendMsg:function(_message,_fun){
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+      chrome.tabs.sendMessage(tabs[0].id, {_message: _message}, _fun);  
+    });
+  },
+  _findById:function(id){
+    return {
+      _element:window.document.getElementById(id),
+      _show:function(){
+        this._element.style.display="";
+        return this;
+      },
+      _hide:function(){
+        this._element.style.display="none";
+        return this;
+      },
+      _val:function(){
+        return this._element.value;
+      },
+      _click:function(_fun){
+        this._element.onclick=_fun;
+        return this;
+      },
+      _html:function(_msg){
+        this._element.innerHTML=_msg;
+        return this;
+      },
+      _attr:function(d){
+        for(var k in d){
+          this._element[k]=d[k];
         }
-
-
-        chrome.runtime.sendMessage({set_settings: {"projectKey": projectKey, "server": server}}, function(response) {
-             console.log("Options settings. " + response.msg);
-             message(response.msg);
-        });
-
-        setLaunchMode();
-        launchTool();
+        return this;
+      },
+      _append:function(v){
+        this._element.innerHTML+=v;
+        return this;
+      }
+    };
+  },
 }
-
-
-function message(mess) {
-  window.document.getElementById("message").innerHTML = mess;
-  window.document.getElementById("message").style = "color:black";
-}
-
-function error(mess) {
-  window.document.getElementById("message").innerHTML = mess;
-  window.document.getElementById("message").style = "color:red";
-}
-
-function isURL(str) {
-  var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
-  '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|'+ // domain name
-  '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-  '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
-  '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-  '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
-  return pattern.test(str);
-}
+setTimeout(function(){
+  window._bzPop._init();
+},100)
