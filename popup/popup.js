@@ -106,6 +106,9 @@ window._bzPop={
           _response=JSON.parse(_response);
           if(_response.constructor==Array){
             var _select=_this._findById("_project");
+            while (_select.firstChild) {
+              _select.removeChild(_select.firstChild);
+            }
             for(var i=0;i<_response.length;i++){
               var r=_response[i];
               if(r.code==_this._setting._project){

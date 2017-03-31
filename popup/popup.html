@@ -15,18 +15,19 @@
         <tr>
           <td>Server:</td>
           <td><input id="_serverName"/></td>
-          <td><button id="_btnSetServer">Next</button></td>
+          <td><button id="_btnSetServer" class="btn btn-success">Next</button></td>
         </tr>
       </table>
     </div>
     <div id="_loginPage" style="display:none">
+      <div id="welcome-text" class="plaintext">Enter your login credentials. To change user account, log-out of Boozang Management GUI. </div>
       <table class="bz-pop-table">
-        <tr><td>User Name (email):</td><td><input id="_username"/></td></tr>
-        <tr><td>Password:</td><td><input type="password" id="_password"/></td></tr>
+        <tr><td>Email:</td><td><input id="_username" class="fancyinput fullwidth"/></td></tr>
+        <tr><td>Password:</td><td><input type="password" id="_password" class="fancyinput fullwidth"/></td></tr>
         <tr>
           <td colspan="2">
-            <button id="_btnLogin">Login</button>
-            <a id="_settingLink1" href="#" style="float:left;width:60px !important;">Setting</a>
+            <button id="_btnLogin" class="btn btn-success">Login</button>
+            <a id="_settingLink1" href="#" style="float:left;width:60px !important;">Change</a>
             <a id="_signUpLink" target="_blank" style="text-align:right;float:right;width:60px !important;">Sign up</a>
           </td>
         </tr>
@@ -37,7 +38,7 @@
         <tr>
           <td>Project:</td>
           <td><select id="_project"/></td>
-          <td colspan="2"><button id="_btnLanuch" onclick="_bzPop._launch()">Go</button></td>
+          <td colspan="2"><button id="_btnLanuch" class="btn btn-success" onclick="_bzPop._launch()">Go</button></td>
         </tr>
       </table>
     </div>

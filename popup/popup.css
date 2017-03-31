@@ -12,8 +12,17 @@ body {
  margin: 5px;
 }
 
+.header-section {
+  background-color: #101010;
+}
+
 .bz-pop-table{
   width:100%;
+}
+
+.plaintext {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .bz-pop-table tr td:first-child{
@@ -30,24 +39,6 @@ body {
   width:100%;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-.fullwidth {
-  width: 280px;
-  height: 25px;
-  margin: 3px 0px 12px 0px;
-  font-size:20px;
-}
-
 .style-5 input[type="text"] {
   padding: 10px;
   margin: 2px;
@@ -60,58 +51,42 @@ body {
   box-shadow: inset 1px 1px 2px 0 #c9c9c9;
 }
 
-.labels {
-	margin-bottom: 2px;
-	margin-top: 2px;
-}
-
-.plaintext {
-	margin-top: 10px;
-	margin-bottom: 10px;
-}
-
-.logo-large {
-	padding: 5px 0px 0px 15px;
-}
-
-.header-section {
-	background-color: #101010;
+.fullwidth {
+    width: 280px;
+    height: 18px;
+    margin: 0px 0px 0px 0px;
+    font-size:14px;
 }
 
 .btn.btn-success:hover {
-  background-color: #325EEA;
+    background-color: #325EEA;
 }
 
 .btn.btn-success {
-  background-color: #3E65FF;
-  border-color: #325EEA;
+    background-color: #3E65FF;
+    border-color: #325EEA;
 }
 
 .btn {
-	width: 285px;
-	color: #fff;
-  display: inline-block;
-  padding: 6px 12px;
-  margin-bottom: 0;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1.42857143;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  -ms-touch-action: manipulation;
-  touch-action: manipulation;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  background-image: none;
-  border: 1px solid transparent;
-  /* border-radius: 4px; */
-}
-
-
-.hide{
-  display: none;
+  width: 285px;
+  color: #fff;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    /* border-radius: 4px; */
 }
