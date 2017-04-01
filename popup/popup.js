@@ -30,9 +30,9 @@ window._bzPop={
     });
 
     this._setting=localStorage.getItem("_bzSetting");
-    
+  
     if(!this._setting){
-      this._showServer();
+      this._showServer();  
     }else{
       this._setting=JSON.parse(this._setting);
       this._retrieveProjectList();
@@ -52,7 +52,7 @@ window._bzPop={
   _showLogin:function(){
     this._hideAllPages();
     this._findById("_loginPage")._show();
-    this._findById("_signUpLink")._attr({href:"http://"+this._setting._server+"/"});
+    this._findById("_signUpLink")._attr({href:"https://"+this._setting._server+"/"});
   },
   _showProject:function(){
     this._hideAllPages();
@@ -68,7 +68,11 @@ window._bzPop={
     this._findById("_settingLink2")._show();
     localStorage.setItem("_bzSetting",JSON.stringify(this._setting));
     this._sendMsg({_fun:"_launch",_setting:this._setting}, function(_response) {
-      _bzPop._showMessage(_response);
+      if (_response === 'ok') {
+         _bzPop._showMessage("Refresh browser to quit Boozang. All unsaved changes will be lost. ");
+      } else {
+        _bzPop._showMessage("Something went wrong. " + _response);
+      }
     });
   },
   _setServer:function(){
@@ -105,10 +109,7 @@ window._bzPop={
         try{
           _response=JSON.parse(_response);
           if(_response.constructor==Array){
-            var _select=_this._findById("_project");
-            while (_select.firstChild) {
-              _select.removeChild(_select.firstChild);
-            }
+            var _select=_this._findById("_project");        
             for(var i=0;i<_response.length;i++){
               var r=_response[i];
               if(r.code==_this._setting._project){

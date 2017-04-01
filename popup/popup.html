@@ -14,8 +14,9 @@
       <table class="bz-pop-table">
         <tr>
           <td>Server:</td>
-          <td><input id="_serverName"/></td>
-          <td><button id="_btnSetServer" class="btn btn-success">Next</button></td>
+          <td><input id="_serverName" class="fancyinput fullwidth"/></td>
+        </tr><tr>
+        <td colspan="2"><button id="_btnSetServer" class="btn btn-success">Next</button></td>
         </tr>
       </table>
     </div>
@@ -27,8 +28,8 @@
         <tr>
           <td colspan="2">
             <button id="_btnLogin" class="btn btn-success">Login</button>
-            <a id="_settingLink1" href="#" style="float:left;width:60px !important;">Change</a>
-            <a id="_signUpLink" target="_blank" style="text-align:right;float:right;width:60px !important;">Sign up</a>
+            <a id="_settingLink1" href="#" style="float:left;margin-top:8px;width:60px !important;">Change</a>
+            <a id="_signUpLink" target="_blank" style="text-align:right;float:right;margin-top:8px;width:60px !important;">Sign up</a>
           </td>
         </tr>
       </table>
@@ -37,13 +38,13 @@
       <table class="bz-pop-table">
         <tr>
           <td>Project:</td>
-          <td><select id="_project"/></td>
+          <td><select id="_project" class="select-style"/></td>
           <td colspan="2"><button id="_btnLanuch" class="btn btn-success" onclick="_bzPop._launch()">Go</button></td>
         </tr>
       </table>
     </div>
     <div id="_message"></div>
-    <div style="text-align:right"><a id="_settingLink2" href="#">Setting</a></div>
+    <div class="bottomlink"><a id="_settingLink2" href="#">Change Settings</a></div>
   </div>
 </body>
 </html>
