@@ -46,6 +46,12 @@ chrome.runtime.onMessage.addListener(
       _xhrObj.setRequestHeader("Accept","application/json, text/plain, */*");
       _xhrObj.send(JSON.stringify(_request._message._data));
       _sendResponse (_xhrObj.responseText);
+    }else if(_request._message._fun=="_logout"){
+      var _url="//"+_setting._server+"/api/signout";
+      _xhrObj.open('POST', _url, false);
+      _xhrObj.send();
+      location.reload();
+      _sendResponse (_xhrObj.responseText);
     }
   }
 );

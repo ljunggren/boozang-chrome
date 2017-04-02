@@ -12,6 +12,11 @@ window._bzPop={
     this._findById("_settingLink2")._click(function(){
       _bzPop._showServer();
     });
+    this._findById("_logout")._click(function(){
+      _bzPop._sendMsg({_fun:"_logout",_setting:_bzPop._setting}, function(_response) {
+        location.reload()
+      });
+    });
     //Lanuch button
     this._findById("_btnLanuch")._click(function(){
       var _project=_bzPop._findById("_project");
@@ -47,6 +52,7 @@ window._bzPop={
   },
   _showServer:function(){
     this._hideAllPages();
+    this._findById("_logout")._hide()
     this._findById("_serverPage")._show();
   },
   _showLogin:function(){
@@ -109,7 +115,9 @@ window._bzPop={
         try{
           _response=JSON.parse(_response);
           if(_response.constructor==Array){
-            var _select=_this._findById("_project");        
+            _this._findById("_logout")._show()
+            var _select=_this._findById("_project");
+            _select._element.innerHTML="";
             for(var i=0;i<_response.length;i++){
               var r=_response[i];
               if(r.code==_this._setting._project){
