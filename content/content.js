@@ -20,7 +20,7 @@ chrome.runtime.onMessage.addListener(
       document.write("<html><head></head><div id='bzTmp' style='display:none'>Boozang plug-in doesn't support to test the website right now.</div></html>");
       //main ref
       var _url = "//"+ _setting._server + "/ide?id=" + _setting._project + "&type=plugin";
-      _insertCode(_xhrObj,_url,"script","function cleanBZ(n){if(n>10){return;} setTimeout(function(){console.clear();if(document.body.innerHTML.length>1000){$('#bzTmp').remove()}else{document.getElementById('bzTmp').style.display='';cleanBZ(++n)}},1000)}cleanBZ(0);");
+      _insertCode(_xhrObj,_url,"script","function cleanBZ(n){if(n>100){return;} setTimeout(function(){console.clear();if(document.body.innerHTML.length>1000){$('#bzTmp').remove()}else{if(n>20){document.getElementById('bzTmp').style.display=''};cleanBZ(++n)}},100)}cleanBZ(0);");
       /*
       //load css
       _url = "//"+ _setting._server + "/ide/new/scss/main.max.css";
