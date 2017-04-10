@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 window._bzPop={
-  _setting:{_server:"app.boozang.com"},
+  _setting:null,
   _clickCount:0,
   _init:function(){
     document.body.onclick=function(){
@@ -49,7 +49,7 @@ window._bzPop={
       _bzPop._login();
     });
 
-    this._setting=localStorage.getItem("_bzSetting");
+//    this._setting=localStorage.getItem("_bzSetting");
     if(!this._setting){
       this._setting={_server:"app.boozang.com"};
     }else{
