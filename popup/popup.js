@@ -50,14 +50,13 @@ window._bzPop={
     });
 
     this._setting=localStorage.getItem("_bzSetting");
-  
     if(!this._setting){
-      this._showProject();  
+      this._setting={_server:"app.boozang.com"};
     }else{
       this._setting=JSON.parse(this._setting);
       this._setting._server=APP_SERVER;
-      this._retrieveProjectList();
     }
+    this._retrieveProjectList();
   },
   _hideAllPages:function(){
     this._findById("_serverPage")._hide();
