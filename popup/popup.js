@@ -1,16 +1,31 @@
+//Mats to check the below message!!! I think we should mention maybe the reason is on our server side.
+var NoResponse="There is no response from the server. Please check your network.";
+var APP_SERVER="app.boozang.com";
 document.addEventListener('DOMContentLoaded', function() {
 
 });
 
 window._bzPop={
-  _setting:null,
+  _setting:{_server:"app.boozang.com"},
+  _clickCount:0,
   _init:function(){
+    document.body.onclick=function(){
+      _bzPop._clickCount++;
+      if(_bzPop._clickCount>5 && Date.now()-_bzPop._clickTime<3000){
+        _bzPop._showServer();
+      }else if(!_bzPop._clickTime || (Date.now()-_bzPop._clickTime>3000)){
+        _bzPop._clickTime=Date.now();
+        _bzPop._clickCount=1;
+      }
+    }
     //Setting links
+/*
     this._findById("_settingLink1")._click(function(){
-      _bzPop._showServer();
+      _bzPop._showProject();
     });
+*/
     this._findById("_settingLink2")._click(function(){
-      _bzPop._showServer();
+      _bzPop._showProject();
     });
     this._findById("_logout")._click(function(){
       _bzPop._sendMsg({_fun:"_logout",_setting:_bzPop._setting}, function(_response) {
@@ -37,9 +52,10 @@ window._bzPop={
     this._setting=localStorage.getItem("_bzSetting");
   
     if(!this._setting){
-      this._showServer();  
+      this._showProject();  
     }else{
       this._setting=JSON.parse(this._setting);
+      this._setting._server=APP_SERVER;
       this._retrieveProjectList();
     }
   },
@@ -58,12 +74,14 @@ window._bzPop={
   _showLogin:function(){
     this._hideAllPages();
     this._findById("_loginPage")._show();
+    this._findById("_curServer")._html(this._setting._server)
     this._findById("_signUpLink")._attr({href:"https://"+this._setting._server+"/"});
   },
   _showProject:function(){
     this._hideAllPages();
+    this._setting._project=null;
     this._findById("_projectPage")._show();
-    this._findById("_settingLink2")._show();
+    this._findById("_settingLink2")._hide();
   },
   _showMessage:function(msg){
     _bzPop._findById("_message")._html(msg)._show();
@@ -93,8 +111,8 @@ window._bzPop={
     var _this=this;
     this._sendMsg({_fun:"_login",_setting:_this._setting,_data:_data}, function(_response) {
       if(!_response){
-        _this._showServer();
-        _bzPop._showMessage("There is no response from the server. Please check the server address.");
+        _this._showLogin();
+        _bzPop._showMessage(NoResponse);
       }else{
         _response=JSON.parse(_response);
         if(_response.message){
@@ -109,9 +127,10 @@ window._bzPop={
     var _this=this;
     this._sendMsg({_fun:"_retrieveProjectList",_setting:_this._setting},function(_response) {
       if(!_response){
-        _this._showServer();
-        _bzPop._showMessage("There is no response from the server. Please check the server address.");
+        _this._showLogin();
+        _bzPop._showMessage(NoResponse);
       }else{
+        var _ready=false;
         try{
           _response=JSON.parse(_response);
           if(_response.constructor==Array){
@@ -121,11 +140,15 @@ window._bzPop={
             for(var i=0;i<_response.length;i++){
               var r=_response[i];
               if(r.code==_this._setting._project){
-                return _this._launch();
+                _ready=true;
               }
               _select._append("<option value='"+r.code+"'>"+r.name+"</option>");
             }
-            _bzPop._showProject();
+            if(_ready){
+              return _this._launch();
+            }else{
+              _bzPop._showProject();
+            }
           }else{
             _bzPop._showLogin();
           }

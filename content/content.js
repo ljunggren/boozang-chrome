@@ -17,6 +17,7 @@ chrome.runtime.onMessage.addListener(
     var _xhrObj = new XMLHttpRequest;
     
     if( _request._message._fun === "_launch" ) {
+      document.body.innerHTML="";
       document.write("<html><head></head><div id='bzTmp' style='display:none'>Boozang plug-in doesn't support testing of this website.</div></html>");
       //main ref
       var _url = "//"+ _setting._server + "/ide?id=" + _setting._project + "&type=plugin";

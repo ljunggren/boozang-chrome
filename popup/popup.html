@@ -24,12 +24,13 @@
     <div id="_loginPage" style="display:none">
       <div id="welcome-text" class="plaintext">Enter your login credentials. To change user account, log-out of Boozang Management GUI. </div>
       <table class="bz-pop-table">
+        <tr><td>Server:</td><td id="_curServer"></td></tr>
         <tr><td>Email:</td><td><input id="_username" class="fancyinput fullwidth"/></td></tr>
         <tr><td>Password:</td><td><input type="password" id="_password" class="fancyinput fullwidth"/></td></tr>
         <tr>
           <td colspan="2">
             <button id="_btnLogin" class="btn btn-success">Login</button>
-            <a id="_settingLink1" href="#" style="float:left;margin-top:8px;width:60px !important;">Change</a>
+            <!--a id="_settingLink1" href="#" style="float:left;margin-top:8px;width:60px !important;">Change</a-->
             <a id="_signUpLink" target="_blank" style="text-align:right;float:right;margin-top:8px;width:60px !important;">Sign up</a>
           </td>
         </tr>
@@ -45,7 +46,7 @@
       </table>
     </div>
     <div id="_message"></div>
-    <div class="bottomlink"><a id="_settingLink2" href="#">Change Settings</a></div>
+    <div class="bottomlink"><a id="_settingLink2" href="#">Change Project</a></div>
   </div>
 </body>
 </html>
