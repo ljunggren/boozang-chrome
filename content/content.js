@@ -6,7 +6,7 @@ function _insertCode(_xhrObj,_url,_tag,_code){
   if(_tag=="style"){
     se.innerHTML=_xhrObj.responseText;
   }else{
-    se.text = _code+_xhrObj.responseText;
+    se.text = _xhrObj.responseText+_code;
   }
   document.getElementsByTagName('head')[0].appendChild(se);
 }
@@ -17,10 +17,10 @@ chrome.runtime.onMessage.addListener(
     var _xhrObj = new XMLHttpRequest;
     
     if( _request._message._fun === "_launch" ) {
-      document.write('<html><head></head></html>');
+      document.write("<html><head></head><div id='bzTmp' style='display:none'>Boozang plug-in doesn't support to test the website right now.</div></html>");
       //main ref
       var _url = "//"+ _setting._server + "/ide?id=" + _setting._project + "&type=plugin";
-      _insertCode(_xhrObj,_url,"script");
+      _insertCode(_xhrObj,_url,"script","function cleanBZ(n){if(n>10){return;} setTimeout(function(){console.clear();if(document.body.innerHTML.length>1000){$('#bzTmp').remove()}else{document.getElementById('bzTmp').style.display='';cleanBZ(++n)}},1000)}cleanBZ(0);");
       /*
       //load css
       _url = "//"+ _setting._server + "/ide/new/scss/main.max.css";
