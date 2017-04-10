@@ -17,7 +17,7 @@ chrome.runtime.onMessage.addListener(
     var _xhrObj = new XMLHttpRequest;
     
     if( _request._message._fun === "_launch" ) {
-      document.write("<html><head></head><div id='bzTmp' style='display:none'>Boozang plug-in doesn't support to test the website right now.</div></html>");
+      document.write("<html><head></head><div id='bzTmp' style='display:none'>Boozang plug-in doesn't support testing of this website.</div></html>");
       //main ref
       var _url = "//"+ _setting._server + "/ide?id=" + _setting._project + "&type=plugin";
       _insertCode(_xhrObj,_url,"script","function cleanBZ(n){if(n>100){return;} setTimeout(function(){console.clear();if(document.body.innerHTML.length>1000){$('#bzTmp').remove()}else{if(n>20){document.getElementById('bzTmp').style.display=''};cleanBZ(++n)}},100)}cleanBZ(0);");

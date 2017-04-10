@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
   "name": "Boozang",
-  "description": "This extension launches the Boozang tool.",
-  "version": "1.0.0.0",
+  "description": "Boozang extension allows you to record automated regression tests and highlight bugs, in the browser.",
+  "version": "1.0.0.2",
   "icons": { 
     "16": "images/boozang16.png",
     "48": "images/boozang48.png",
