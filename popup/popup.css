@@ -71,9 +71,6 @@ body {
   border: 1px solid #ccc;
   height: 28px;
   border-radius: 3px;
-  background: #fafafa url("data:image/png;base64,R0lGODlhDwAUAIABAAAAAP///yH5BAEAAAEALAAAAAAPABQAAAIXjI+py+0Po5wH2HsXzmw//lHiSJZmUAAAOw==") no-repeat 90% 50%;
-  background-position: 100% 0px;
-  background-size: 18px;
 }
 
 .bz-exit { background-image: url('data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11.dtd%22%3E%3Csvg%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20width%3D%2225%22%20height%3D%2225%22%20viewBox%3D%220%200%2032%2032%22%3E%20%3Cg%20fill%3D%22%23A1A8AB%22%20fill-opacity%3D%220.2%22%20stroke%3D%22%23A1A8AB%22%20stroke-linejoin%3D%22round%22%20stroke-miterlimit%3D%2210%22%20stroke-width%3D%221.28%22%20transform%3D%22matrix%280.85748478%2C0%2C0%2C0.8594817%2C2.2802435%2C2.2482928%29%22%3E%20%20%3Cpath%20d%3D%22M24%2020v-4h-10v-4h10v-4l6%206zM22%2018v8h-10v6l-12-6v-26h22v10h-2v-8h-16l8%204v18h8v-6z%22%3E%3C%2Fpath%3E%20%3C%2Fg%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; }
