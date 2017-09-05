@@ -1,5 +1,6 @@
 function _insertCode(_xhrObj,_url,_tag,_code){
   _xhrObj.open('GET', _url, false);
+  _xhrObj.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   _xhrObj.send('');
   _code=_code||"";
   var se = document.createElement(_tag);
@@ -8,6 +9,7 @@ function _insertCode(_xhrObj,_url,_tag,_code){
   }else{
     se.text = _xhrObj.responseText+_code;
   }
+  console.log(se.text)
   document.getElementsByTagName('head')[0].appendChild(se);
 }
 

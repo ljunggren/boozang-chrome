@@ -5,10 +5,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
+var blockList=[
+  "www.facebook.com",
+  "app.boozang.com",
+  "www.boozang.com",
+  "github.com",
+  "www.linkedin.com"]
 window._bzPop={
   _setting:null,
   _clickCount:0,
   _init:function(){
+    var _this=this;
     document.body.onclick=function(){
       _bzPop._clickCount++;
       if(_bzPop._clickCount>5 && Date.now()-_bzPop._clickTime<3000){
@@ -49,14 +56,32 @@ window._bzPop={
       _bzPop._login();
     });
 
-//    this._setting=localStorage.getItem("_bzSetting");
-    if(!this._setting){
-      this._setting={_server:"app.boozang.com"};
-    }else{
-      this._setting=JSON.parse(this._setting);
-      this._setting._server=APP_SERVER;
-    }
-    this._retrieveProjectList();
+    chrome.tabs.query({
+      active: true,
+      lastFocusedWindow: true
+    }, function(tabs) {
+      // and use that tab to fill in out title and url
+      var tab = tabs[0];
+      var url=tab.url;
+      if(url){
+        url=url.split("//")[1].split("/")[0]
+      }
+      if(blockList.includes(url)){
+        _this._hideAllPages();
+        _this._showMessage("Cannot test the website: "+url)
+      }else{
+        _this._findById("_domain")._html(url);
+        
+        //    this._setting=localStorage.getItem("_bzSetting");
+        if(!_this._setting){
+          _this._setting={_server:"app.boozang.com"};
+        }else{
+          _this._setting=JSON.parse(_this._setting);
+          _this._setting._server=APP_SERVER;
+        }
+        _this._retrieveProjectList();
+      }
+    });
   },
   _hideAllPages:function(){
     this._findById("_serverPage")._hide();
