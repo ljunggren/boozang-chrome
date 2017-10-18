@@ -70,6 +70,10 @@ window._bzPop={
         _this._hideAllPages();
         _this._showMessage("Cannot test the website: "+url)
       }else{
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+            chrome.tabs.update(tabs[0].id, {url: tabs[0].url});
+        });
+
         _this._findById("_domain")._html(url);
         
         //    this._setting=localStorage.getItem("_bzSetting");
@@ -137,6 +141,7 @@ window._bzPop={
       if(!_response){
         _this._showLogin();
         _bzPop._showMessage(NoResponse);
+        
       }else{
         _response=JSON.parse(_response);
         if(_response.message){
