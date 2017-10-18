@@ -55,7 +55,7 @@ window._bzPop={
     this._findById("_btnLogin")._click(function(){
       _bzPop._login();
     });
-
+console.log("start ....")
     chrome.tabs.query({
       active: true,
       lastFocusedWindow: true
@@ -66,12 +66,15 @@ window._bzPop={
       if(url){
         url=url.split("//")[1].split("/")[0]
       }
+      console.log(url)
       if(blockList.includes(url)){
         _this._hideAllPages();
         _this._showMessage("Cannot test the website: "+url)
       }else{
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-            chrome.tabs.update(tabs[0].id, {url: tabs[0].url});
+          console.log("reload: "+tabs[0].url)
+          chrome.tabs.reload();
+//          chrome.tabs.update(tabs[0].id, {url: tabs[0].url});
         });
 
         _this._findById("_domain")._html(url);
@@ -83,7 +86,7 @@ window._bzPop={
           _this._setting=JSON.parse(_this._setting);
           _this._setting._server=APP_SERVER;
         }
-        _this._retrieveProjectList();
+        _this._retrieveProjectList(1);
       }
     });
   },
@@ -152,12 +155,16 @@ window._bzPop={
       }
     });
   },
-  _retrieveProjectList:function(){
+  _retrieveProjectList:function(_first){
     var _this=this;
     this._sendMsg({_fun:"_retrieveProjectList",_setting:_this._setting},function(_response) {
       if(!_response){
         _this._showLogin();
-        _bzPop._showMessage(NoResponse);
+        console.log("first: "+_first)
+        if(!_first){
+          
+          _bzPop._showMessage(NoResponse);
+        }
       }else{
         var _ready=false;
         try{
@@ -188,6 +195,7 @@ window._bzPop={
     });
   },
   _sendMsg:function(_message,_fun){
+    console.log(_message)
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
       chrome.tabs.sendMessage(tabs[0].id, {_message: _message}, _fun);  
     });
