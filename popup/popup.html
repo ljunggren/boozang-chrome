@@ -11,20 +11,10 @@
     <a id="_logout" href="#" class="bz-exit" style="display:none"></a>
   </div>
   <div class="container">
-    <div id="_serverPage" style="display:none">
-      <table class="bz-pop-table">
-        <tr>
-          <td>Server:</td>
-          <td><input id="_serverName" class="fancyinput fullwidth" value="localhost"/></td>
-        </tr><tr>
-        <td colspan="2"><button id="_btnSetServer" class="btn btn-success">Next</button></td>
-        </tr>
-      </table>
-    </div>
     <div id="_loginPage" style="display:none">
       <div id="welcome-text" class="plaintext">Enter your login credentials. To change user account, log-out of Boozang Management GUI. </div>
       <table class="bz-pop-table">
-        <tr><td>Server:</td><td id="_curServer"></td></tr>
+        <tr><td>Server:</td><td><input id="_serverName" class="fancyinput fullwidth" value="app.boozang.com"/></td></tr>
         <tr><td>Email:</td><td><input id="_username" class="fancyinput fullwidth"/></td></tr>
         <tr><td>Password:</td><td><input type="password" id="_password" class="fancyinput fullwidth"/></td></tr>
         <tr>

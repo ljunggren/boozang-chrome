@@ -47,10 +47,6 @@ window._bzPop={
         _bzPop._launch();
       }
     });
-    //set server button
-    this._findById("_btnSetServer")._click(function(){
-      _bzPop._setServer();
-    });
     //login button
     this._findById("_btnLogin")._click(function(){
       _bzPop._login();
@@ -64,7 +60,7 @@ console.log("start ....")
       var tab = tabs[0];
       var url=tab.url;
       if(url){
-        url=url.split("//")[1].split("/")[0]
+        url=url.split("/"+"/")[1].split("/")[0]
       }
       console.log(url)
       if(blockList.includes(url)){
@@ -91,7 +87,6 @@ console.log("start ....")
     });
   },
   _hideAllPages:function(){
-    this._findById("_serverPage")._hide();
     this._findById("_loginPage")._hide();
     this._findById("_projectPage")._hide();
     this._findById("_message")._hide();
@@ -100,12 +95,11 @@ console.log("start ....")
   _showServer:function(){
     this._hideAllPages();
     this._findById("_logout")._hide()
-    this._findById("_serverPage")._show();
   },
   _showLogin:function(){
     this._hideAllPages();
     this._findById("_loginPage")._show();
-    this._findById("_curServer")._html(this._setting._server)
+    this._findById("_serverName")._val(this._setting._server)
     this._findById("_signUpLink")._attr({href:"https://"+this._setting._server+"/"});
   },
   _showProject:function(){
@@ -135,6 +129,7 @@ console.log("start ....")
     this._retrieveProjectList();
   },
   _login:function(){
+    this._setting={_server:this._findById("_serverName")._val()};
     var _data={
       username:this._findById("_username")._val(),
       password:this._findById("_password")._val()
