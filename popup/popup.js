@@ -16,6 +16,7 @@ window._bzPop={
   _clickCount:0,
   _init:function(){
     var _this=this;
+    /*
     document.body.onclick=function(){
       _bzPop._clickCount++;
       if(_bzPop._clickCount>5 && Date.now()-_bzPop._clickTime<3000){
@@ -25,6 +26,7 @@ window._bzPop={
         _bzPop._clickCount=1;
       }
     }
+    */
     //Setting links
 /*
     this._findById("_settingLink1")._click(function(){
@@ -75,12 +77,12 @@ console.log("start ....")
 
         _this._findById("_domain")._html(url);
         
-        //    this._setting=localStorage.getItem("_bzSetting");
+        _this._setting=localStorage.getItem("_bzSetting");
         if(!_this._setting){
           _this._setting={_server:"app.boozang.com"};
         }else{
           _this._setting=JSON.parse(_this._setting);
-          _this._setting._server=APP_SERVER;
+//          _this._setting._server=APP_SERVER;
         }
         _this._retrieveProjectList(1);
       }
@@ -153,6 +155,7 @@ console.log("start ....")
   _retrieveProjectList:function(_first){
     var _this=this;
     this._sendMsg({_fun:"_retrieveProjectList",_setting:_this._setting},function(_response) {
+      localStorage.setItem("_bzSetting",JSON.stringify(_this._setting))
       if(!_response){
         _this._showLogin();
         console.log("first: "+_first)
@@ -175,11 +178,7 @@ console.log("start ....")
               }
               _select._append("<option value='"+r.code+"'>"+r.name+"</option>");
             }
-            if(_ready){
-              return _this._launch();
-            }else{
-              _bzPop._showProject();
-            }
+            _bzPop._showProject();
           }else{
             _bzPop._showLogin();
           }
